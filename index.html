@@ -1,0 +1,276 @@
+<html>
+<head>
+    
+    <title>SQL Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://esm.sh/monaco-editor/min/vs/editor/editor.main.css">
+   <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        #container {
+            height: 100%;
+           
+        }
+        .back{
+            position: absolute;
+    width: 100%;
+    background: black;
+    height: 69px;
+    bottom: 0;
+    display: flex;
+    
+    justify-content: flex-end;
+    align-items: center
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar (Partie de gauche) -->
+        
+
+        <!-- Code Editor (Partie du milieu) -->
+        <div  class="w-1/2 bg-gray-800 p-8 h-full overflow-scroll">
+            <div id="container"></div>
+        </div>
+
+        <!-- Results (Partie de droite) -->
+        <div  class="w-1/2 bg-gray-900 p-8 h-full overflow-scroll">
+            <div class="mb-4 text-white">
+                <h3 class="text-white text-lg text-center" id="timer" style="font-size: 40px;"></h3>
+                <br><br><br><br><br>
+                En moins de 7 minutes, faire une image de Node qui lance le fichier app.js. Le répertoire dans le conteneur sera src/app. Copier tous les fichiers. Exposer le port 4022.
+            </div>
+            <div id="display" class="text-gray-400 text-sm">
+              
+            </div>
+        </div>
+    </div>
+
+    <div class="back">
+        <span> 1/10</span>
+        
+
+
+<button type="button" class=" h-10 text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 flex gap-2" id="test">Valider  <img width="20px" src="./icones/test.png"></button>
+<!-- <button type="button" class="h-10 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 flex gap-2" id="run">RUN <img width="20px" src="./icones/run.png"> </button> -->
+
+    </div>
+</body>
+
+<script>
+    if(localStorage.getItem('time')){
+document.body.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2c5NnlxdzhhMG56bGQyOTU5MHgwNDd1amN1ZndnM2hkbjdnazJhaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d2lcHJTG5Tscg/giphy.gif"/>'
+}
+</script>
+
+<script type="module">
+    // import {save} from './firefast.js'
+    import './fraud.js'
+
+
+
+
+    const timerDisplay = document.getElementById('timer'); // Sélectionner l'élément h3
+
+let timeLeft = 7 * 60; // Le temps total en secondes (7 minutes)
+
+const timer = setInterval(() => {
+    const minutes = Math.floor(timeLeft / 60); // Calculer les minutes
+    let seconds = timeLeft % 60; // Calculer les secondes
+
+    // Ajouter un zéro devant les secondes si moins de 10
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    // Afficher le temps restant dans le h3
+    timerDisplay.textContent = `${minutes}:${seconds}`;
+
+    // Décrémenter le temps restant
+    timeLeft--;
+
+    // Quand le temps est écoulé (0 seconde), arrêter le timer
+    if (timeLeft < 0) {
+        clearInterval(timer);
+        timerDisplay.textContent = 'Temps écoulé!';
+        localStorage.setItem('time','out')
+        document.body.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2c5NnlxdzhhMG56bGQyOTU5MHgwNDd1amN1ZndnM2hkbjdnazJhaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d2lcHJTG5Tscg/giphy.gif"/>'
+
+    }
+}, 1000); // Répéter chaque seconde
+   
+    import * as monaco from 'https://esm.sh/monaco-editor';
+    import editorWorker from 'https://esm.sh/monaco-editor/esm/vs/editor/editor.worker?worker';
+    // autres importations...
+ 
+
+    self.MonacoEnvironment = {
+        // configuration de l'environnement...
+    };
+
+   
+
+    let editor = monaco.editor.create(document.getElementById('container'), {
+        value: "--  NOM PRENOM GROUPE",
+        language: 'sql'
+    });
+   // monaco.editor.setTheme('vs-dark');
+
+   monaco.editor.defineTheme('my-dark', {
+    base: 'vs-dark',
+    inherit: true, // Hérite des styles par défaut de vs-dark
+    rules: [
+        // Ajoutez ici des règles supplémentaires pour la coloration syntaxique
+    ],
+    colors: {
+        "editor.background": '#1f2937',
+        "editor.foreground": '#C5C8C6', // Couleur du texte
+        "editor.selectionBackground": '#555', // Couleur de la sélection
+        "editor.lineHighlightBackground": '#1E1E1E', // Couleur de la ligne active
+        "editorCursor.foreground": '#AEAFAD', // Couleur du curseur
+        "editorWhitespace.foreground": '#404040', // Couleur des espaces blancs
+        "editorIndentGuide.background": '#404040', // Couleur des guides d'indentation
+        // Autres couleurs personnalisées
+        "editorComment.foreground": '#5C6370', // Couleur des commentaires
+        "editorKeyword.foreground": '#C678DD', // Couleur des mots-clés
+        "editorVariable.foreground": '#E06C75', // Couleur des variables
+        // etc...
+    }
+});
+
+editor.updateOptions({
+    fontSize: 16,
+    minimap: {
+        enabled: false
+    } 
+
+});
+
+monaco.editor.setTheme('my-dark');
+
+let prompt = []
+
+    // Fonction pour récupérer la valeur de l'éditeur
+    window.getEditorValue = function() {
+       
+        let code = editor.getValue();
+       
+        const userPrompt = {
+            "role": "user",
+            "content": code
+    }
+    prompt.push(userPrompt)
+    localStorage.setItem('time', 'finish')
+
+    document.body.innerHTML = '<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2c5NnlxdzhhMG56bGQyOTU5MHgwNDd1amN1ZndnM2hkbjdnazJhaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d2lcHJTG5Tscg/giphy.gif"/>'
+    // save('code', {
+    //         code : prompt,
+    //         date : new Date(),
+    //         uid:localStorage.getItem('uid')
+        
+    //     }).then( () => {
+    //         localStorage.setItem('time', 'finish')
+    //     })
+}
+
+
+    async function sendToServer(jsonData) {
+    // URL du serveur
+    const url = 'http://localhost:3001/sql';
+
+    try {
+        // Envoi de la requête
+        const response = await fetch(url, {
+            method: 'POST', // ou 'GET' selon votre API
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({...jsonData, format:"free"})
+        });
+
+        // Vérifier si la réponse est OK
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+
+        // Traitement de la réponse
+        const responseData = await response.json();
+        return responseData;
+    } catch (error) {
+        console.error('Erreur lors de l\'envoi de la requête:', error);
+    }
+}
+
+ 
+function sendPrompt (){
+
+getEditorValue()
+}
+// console.log(prompt)
+// sendToServer({prompt})
+//     .then(responseData => {
+
+//       const botPrompt = {
+//             "role": "assistant",
+//             "content": responseData.response
+//     }
+//     prompt.push(botPrompt)
+//         displayResult(responseData.response)
+//     })
+//     .catch(error => console.error('Erreur lors de l\'envoi:', error));
+// }
+
+
+document.getElementById('test').addEventListener('click', sendPrompt);
+
+function displayResult(response){
+ 
+ document.getElementById('display').innerHTML = convertToHtmlTable(response)
+    
+}
+
+
+
+
+
+
+function convertToHtmlTable(inputText) {
+    if (!inputText) return '<p>Aucune donnée fournie</p>';
+
+    // Séparation des lignes et suppression des lignes de séparation
+    const lines = inputText.split('\n').filter(line => !line.includes('+'));
+
+    let html = '<table class="min-w-full leading-normal">';
+
+    // Fonction d'aide pour créer une ligne de tableau
+    const createRow = (cells, isHeader = false) => {
+        let row = `<tr class="bg-gray-800 text-white">`;
+        cells.forEach(cell => {
+            if (cell) {
+                row += isHeader 
+                    ? `<th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider">${cell}</th>`
+                    : `<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><p class="text-gray-900 whitespace-no-wrap">${cell}</p></td>`;
+            }
+        });
+        row += '</tr>';
+        return row;
+    };
+
+    // Traitement des en-têtes
+    const headers = lines[0].split('|').map(header => header.trim());
+    html += createRow(headers, true);
+
+    // Traitement des données
+    for (let i = 1; i < lines.length; i++) {
+        const row = lines[i].split('|').map(cell => cell.trim());
+        html += createRow(row);
+    }
+
+    html += '</table>';
+    return html;
+}
+
+</script>
+</html>
